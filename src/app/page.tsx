@@ -206,7 +206,7 @@ export default function Page() {
             </div>
             <div>
               <p><strong>Contact:</strong> Jennifer Scott, Founder</p>
-              <p><a href="mailto:Jennifer.scott@buds2roses.com" style={{color:'#fff'}}>Jennifer.scott@buds2roses.com</a></p>
+              <p><a href="mailto:info@4playglobal.com" style={{color:'#fff'}}>info@4playglobal.com</a></p>
               <p><a href="https://www.4PlayGlobal.com" target="_blank" rel="noreferrer" style={{color:'#fff'}}>www.4PlayGlobal.com</a></p>
               <p><a href="https://instagram.com/4PlaySkateLounge" target="_blank" rel="noreferrer" style={{color:'#fff'}}>@4PlaySkateLounge</a></p>
             </div>
@@ -226,7 +226,7 @@ export default function Page() {
           <div className="social">
             <a href="https://instagram.com/4PlaySkateLounge" target="_blank" rel="noreferrer" aria-label="Instagram">IG</a>
             <a href="https://www.4PlayGlobal.com" target="_blank" rel="noreferrer" aria-label="Website">WWW</a>
-            <a href="mailto:Jennifer.scott@buds2roses.com" aria-label="Email">@</a>
+            <a href="mailto:info@4playglobal.com" aria-label="Email">@</a>
           </div>
         </div>
       </footer>
