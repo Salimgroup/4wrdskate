@@ -7,13 +7,6 @@ import "./lessons.css";
 
 
 
-function StripeBuyButton({ buyButtonId, publishableKey }: { buyButtonId: string, publishableKey: string }) {
-    return React.createElement('stripe-buy-button', {
-        'buy-button-id': buyButtonId,
-        'publishable-key': publishableKey
-    });
-}
-
 const SESSIONS = [
     { id: "sat-2pm", time: "2:00 PM — 3:00 PM", name: "Beginner", day: "Saturday", spots: 50 },
     { id: "sat-3pm", time: "3:00 PM — 4:00 PM", name: "Intermediate", day: "Saturday", spots: 50 },
@@ -170,29 +163,11 @@ export default function LessonsPage() {
             console.warn("Email send prep failed:", e);
         }
 
-        // 3. Initiate Stripe Checkout
-        try {
-            const res = await fetch("/api/checkout", { 
-                method: "POST", 
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    sessionId: selectedSession, 
-                    pricingId: selectedPricing,
-                    studentInfo 
-                }) 
-            });
-            const data = await res.json();
-            if (data.url) {
-                window.location.href = data.url;
-            } else {
-                alert(`✅ Booking confirmed!\n\nSession: ${sessionData?.time}\nPlan: ${pricingData?.label} — ${pricingData?.amount}\n\nIn production this redirects to Stripe Checkout.`);
-                setIsBooking(false);
-            }
-        } catch (error) {
-            console.error("Checkout error:", error);
-            alert("Checkout failed. Please try again.");
-            setIsBooking(false);
-        }
+        // 3. Redirect to Square Checkout
+        setTimeout(() => {
+            alert(`✅ Details saved!\n\nYou will now be redirected to Square to complete your purchase.`);
+            window.location.href = "https://checkout.square.site/merchant/MLFW3X8RMKVW2/checkout/VVQJ2ZJFQPEZULDJUYDP6RBH";
+        }, 800);
     };
 
 
@@ -301,27 +276,24 @@ export default function LessonsPage() {
                     <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-center">
                         <div className="flex flex-col items-center gap-3">
                            <span className="text-xs text-[#00e5ff] font-bold tracking-wider">SINGLE CLASS</span>
-                           <StripeBuyButton 
-                               buyButtonId="buy_btn_1T9EprPmJ40hc8nCQkllSU3q" 
-                               publishableKey="pk_live_51T8VkvPmJ40hc8nCEeCRHSif206AYbTyI6cYJ9SC7RJ1MdmUqx6X4yaBuBsbzuFxxas4lH2OsgmYgUYrtizsgR8100VG0DrRSh"
-                           />
+                           <a href="https://checkout.square.site/merchant/MLFW3X8RMKVW2/checkout/VVQJ2ZJFQPEZULDJUYDP6RBH" target="_blank" rel="noreferrer" className="bg-[#00e5ff] text-black px-6 py-3 rounded-full font-bold uppercase tracking-wider text-sm hover:scale-105 transition-transform shadow-[0_0_15px_rgba(0,229,255,0.4)] block text-center min-w-[160px]">
+                               Book Now
+                           </a>
                         </div>
 
                         <div className="flex flex-col items-center gap-3">
                            <span className="text-[10px] text-[#f5e642] font-bold tracking-wider bg-black/40 px-2 py-1 rounded-md border border-white/10">BEST VALUE</span>
                            <span className="text-xs text-[#f5e642] font-bold tracking-wider">FULL COURSE</span>
-                           <StripeBuyButton 
-                               buyButtonId="buy_btn_1T9ExrPmJ40hc8nC0b00kFXb" 
-                               publishableKey="pk_live_51T8VkvPmJ40hc8nCEeCRHSif206AYbTyI6cYJ9SC7RJ1MdmUqx6X4yaBuBsbzuFxxas4lH2OsgmYgUYrtizsgR8100VG0DrRSh"
-                           />
+                           <a href="https://checkout.square.site/merchant/MLFW3X8RMKVW2/checkout/VVQJ2ZJFQPEZULDJUYDP6RBH" target="_blank" rel="noreferrer" className="bg-[#f5e642] text-black px-6 py-3 rounded-full font-bold uppercase tracking-wider text-sm hover:scale-105 transition-transform shadow-[0_0_15px_rgba(245,230,66,0.4)] block text-center min-w-[160px]">
+                               Book Now
+                           </a>
                         </div>
 
                         <div className="flex flex-col items-center gap-3">
                            <span className="text-xs text-[#ff00a0] font-bold tracking-wider">DAY OF CLASS</span>
-                           <StripeBuyButton 
-                               buyButtonId="buy_btn_1T9EuQPmJ40hc8nCcfyWlQUg" 
-                               publishableKey="pk_live_51T8VkvPmJ40hc8nCEeCRHSif206AYbTyI6cYJ9SC7RJ1MdmUqx6X4yaBuBsbzuFxxas4lH2OsgmYgUYrtizsgR8100VG0DrRSh"
-                           />
+                           <a href="https://checkout.square.site/merchant/MLFW3X8RMKVW2/checkout/VVQJ2ZJFQPEZULDJUYDP6RBH" target="_blank" rel="noreferrer" className="bg-[#ff00a0] text-white px-6 py-3 rounded-full font-bold uppercase tracking-wider text-sm hover:scale-105 transition-transform shadow-[0_0_15px_rgba(255,0,160,0.4)] block text-center min-w-[160px]">
+                               Book Now
+                           </a>
                         </div>
                     </div>
                 </div>
@@ -461,13 +433,11 @@ export default function LessonsPage() {
                         {(!selectedSession) ? "Select a session to continue" 
                             : (!selectedPricing) ? "Select a pricing plan to continue" 
                             : (!isStudentComplete) ? "Complete student details to continue"
-                            : "Proceed to Stripe Checkout"}
+                            : "Proceed to Square Checkout"}
                     </div>
                 </div>
             </div>
 
-            {/* STRIPE WEB COMPONENTS SCRIPT */}
-            <Script async src="https://js.stripe.com/v3/buy-button.js" strategy="lazyOnload"></Script>
 
             {/* MASCOT */}
             <div className="mascot-float hidden md:block">
