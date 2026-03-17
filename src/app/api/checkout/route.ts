@@ -75,7 +75,7 @@ export async function POST(req: Request) {
 
     const prices: { [key: string]: number } = {
       single: 6500, // $65.00
-      course: 60000, // $600.00
+      course: 72000, // $600.00
       dayof: 7500, // $75.00
     };
     

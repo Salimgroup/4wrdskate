@@ -12,9 +12,8 @@ const SESSIONS = [
 ];
 
 const PRICING = [
-    { id: "single", amount: 65, label: "Single Class", desc: "Pre-paid per session", popular: false },
     { id: "dayof", amount: 75, label: "Day of Class", desc: "Walk-in rate", popular: false },
-    { id: "course", amount: 600, label: "Full Course", desc: "12 Classes — best value", popular: true },
+    { id: "course", amount: 720, label: "Full Course", desc: "12 Classes — best value", popular: true },
 ];
 
 const APPS_SCRIPT_URL: string = "https://script.google.com/macros/s/AKfycbw_T8vVeF19U0PtqzShQ1u3OxFADTUDxWROYFAJCg9aTtrzQDCI0q7lrEUz0wDlMVap/exec";
@@ -212,22 +211,15 @@ export default function LessonsPage() {
                     <p className="text-white/40 text-xs font-bold tracking-widest uppercase mb-2">Quick Purchase Options</p>
                     <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-center">
                         <div className="flex flex-col items-center gap-3">
-                           <span className="text-xs text-[#00e5ff] font-bold tracking-wider">SINGLE CLASS</span>
-                           <a href="https://checkout.square.site/merchant/MLFW3X8RMKVW2/checkout/VVQJ2ZJFQPEZULDJUYDP6RBH" target="_blank" rel="noreferrer" className="bg-[#00e5ff] text-black px-6 py-3 rounded-full font-bold uppercase tracking-wider text-sm hover:scale-105 transition-transform shadow-[0_0_15px_rgba(0,229,255,0.4)] block text-center min-w-[160px]">
-                               Book Now
-                           </a>
-                        </div>
-
-                        <div className="flex flex-col items-center gap-3">
                            <span className="text-[10px] text-[#f5e642] font-bold tracking-wider bg-black/40 px-2 py-1 rounded-md border border-white/10">BEST VALUE</span>
-                           <span className="text-xs text-[#f5e642] font-bold tracking-wider">FULL COURSE</span>
+                           <span className="text-xs text-[#f5e642] font-bold tracking-wider">FULL COURSE ($720)</span>
                            <a href="https://checkout.square.site/merchant/MLFW3X8RMKVW2/checkout/VVQJ2ZJFQPEZULDJUYDP6RBH" target="_blank" rel="noreferrer" className="bg-[#f5e642] text-black px-6 py-3 rounded-full font-bold uppercase tracking-wider text-sm hover:scale-105 transition-transform shadow-[0_0_15px_rgba(245,230,66,0.4)] block text-center min-w-[160px]">
                                Book Now
                            </a>
                         </div>
 
                         <div className="flex flex-col items-center gap-3">
-                           <span className="text-xs text-[#ff00a0] font-bold tracking-wider">DAY OF CLASS</span>
+                           <span className="text-xs text-[#ff00a0] font-bold tracking-wider">DAY OF CLASS ($75)</span>
                            <a href="https://checkout.square.site/merchant/MLFW3X8RMKVW2/checkout/VVQJ2ZJFQPEZULDJUYDP6RBH" target="_blank" rel="noreferrer" className="bg-[#ff00a0] text-white px-6 py-3 rounded-full font-bold uppercase tracking-wider text-sm hover:scale-105 transition-transform shadow-[0_0_15px_rgba(255,0,160,0.4)] block text-center min-w-[160px]">
                                Book Now
                            </a>
