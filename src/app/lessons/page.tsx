@@ -7,8 +7,8 @@ import "./lessons.css";
 
 
 const SESSIONS = [
-    { id: "sat-2pm", time: "2:00 PM — 3:00 PM", name: "Beginner", day: "Saturday", spots: 50 },
-    { id: "sat-3pm", time: "3:00 PM — 4:00 PM", name: "Intermediate", day: "Saturday", spots: 50 },
+    { id: "sat-1pm", time: "1:00 PM — 2:00 PM", name: "Children", day: "Saturday", spots: 50 },
+    { id: "sat-1pm", time: "2:00 PM — 3:00 PM", name: "ADULTS", day: "Saturday", spots: 50 },
 ];
 
 const PRICING = [
@@ -17,6 +17,34 @@ const PRICING = [
 ];
 
 const APPS_SCRIPT_URL: string = "https://script.google.com/macros/s/AKfycbw_T8vVeF19U0PtqzShQ1u3OxFADTUDxWROYFAJCg9aTtrzQDCI0q7lrEUz0wDlMVap/exec";
+
+const FAQs = [
+  { q: "Who are 4WRD lessons for?", a: "Our lessons are designed for children, teens, and adults of all skill levels, including neurodivergent participants. From first-time skaters to those refining their technique, we meet each participant where they are." },
+  { q: "Do I need any skating experience?", a: "Not at all! Our program is beginner-friendly and designed to support all levels." },
+  { q: "What makes 4WRD different from other skating programs?", a: "4WRD uses a confidence-first teaching method rooted in:<br/>• Gentle athletics<br/>• Skill-building through play<br/>• Structured progression<br/>• Emotional + physical development<br/><br/>We don’t just teach skating—we build confidence, coordination, and community." },
+  { q: "What is “gentle athletics”?", a: "Gentle athletics is our approach to movement that prioritizes:<br/>• Safety<br/>• Confidence<br/>• Body awareness<br/>• Joy over pressure<br/><br/>Participants grow at their own pace while building strong foundational skills." },
+  { q: "How long are lessons?", a: "All lessons are 60 minutes." },
+  { q: "What should I bring?", a: "• Comfortable clothing<br/>• Water<br/>• Your own skates (recommended)<br/>• Your own safety gear (recommended)<br/><br/>We encourage participants to invest in their own skates, as consistency supports progress and confidence. Skates are available if needed, and rental is included with membership. We also encourage participants to invest in their own safety gear. We have helmets and wrist guards available to borrow during class, and for beginners, we utilize skate aids as an added support tool." },
+  { q: "Do you provide skates and safety gear?", a: "Yes. Skates are available, and rental is included with membership. Helmets and wrist guards are available to borrow during lessons." },
+  { q: "Where do lessons take place?", a: "Lessons take place at select partner locations and community spaces. Full details are shared upon registration." },
+  { q: "Who are the instructors?", a: "All 4WRD instructors are trained through our internal certification process to:<br/>• Teach skating fundamentals<br/>• Work with children and diverse learners<br/>• Create a safe, welcoming environment" },
+  { q: "Are instructors trained to work with children?", a: "Yes. Our team is trained in youth engagement, safety, and confidence-building techniques." },
+  { q: "What is your student-to-instructor ratio?", a: "We keep groups intentionally small to ensure personalized attention and safety." },
+  { q: "What can I expect from my first lesson?", a: "Your first session focuses on:<br/>• Building comfort on skates<br/>• Learning balance and basic movement<br/>• Establishing confidence<br/><br/>No pressure—just progress." },
+  { q: "How quickly will I (or my child) learn?", a: "Every skater progresses differently. Our focus is on consistent growth and confidence, not rushing milestones." },
+  { q: "Do you offer private lessons?", a: "Yes. We offer both:<br/>• Small group lessons<br/>• 1:1 private instruction" },
+  { q: "What is a 4WRD Membership?", a: "A 4WRD Membership provides ongoing access to structured skating lessons designed for consistent skill development." },
+  { q: "What’s included in a membership?", a: "Membership includes:<br/>• Weekly 1-hour lessons<br/>• Small group or private lesson options<br/>• Instruction from trained 4WRD coaches<br/>• Progressive skill development<br/>• Skate rental included" },
+  { q: "Why choose a membership instead of single lessons?", a: "Consistency is key. Membership allows skaters to:<br/>• Build skills faster<br/>• Gain confidence over time<br/>• Become part of the 4WRD community" },
+  { q: "Can I switch between group and private lessons?", a: "Yes, based on availability and membership type." },
+  { q: "What is your membership cancellation policy?", a: "Memberships are billed on a monthly basis and may be canceled at any time with written notice.<br/>• Cancellations made before the next billing cycle will not be charged further<br/>• If canceled mid-cycle, membership will remain active through the end of the current billing period<br/>• No refunds or prorated credits are issued for unused time within a billing cycle" },
+  { q: "What is your cancellation policy for single lessons?", a: "Single lesson bookings are non-refundable within 24 hours of the scheduled class time." },
+  { q: "What happens if I miss a class?", a: "Missed classes are non-refundable, but you may reschedule within 14 days, based on availability." },
+  { q: "What is your late registration policy?", a: "Participants may join after a session has started. Late registrations include:<br/>• A registration fee<br/>• A prorated membership fee based on remaining sessions" },
+  { q: "How do I register?", a: "You can register right here on this page by selecting a session and completing the booking form above." },
+  { q: "Do you offer birthday parties or private group events?", a: "Yes! Please complete our inquiry form: <a href='https://docs.google.com/forms/d/e/1FAIpQLSdyZr76GMkgPsf4_0XWl8XaUqg_7TFkFORDZgrrimQ-cHCw6g/viewform' target='_blank' style='color:#00e5ff;text-decoration:underline;'>Click Here</a>" },
+  { q: "Can parents stay during lessons?", a: "We encourage drop-off lessons to help participants build independence and confidence. Families are welcome to wait in a designated nearby area." }
+];
 
 export default function LessonsPage() {
     const [selectedSession, setSelectedSession] = useState<string | null>(null);
@@ -367,6 +395,26 @@ export default function LessonsPage() {
                 </div>
             </div>
 
+
+            {/* FAQ SECTION */}
+            <section className="faq-container scroll-reveal slide-up mt-16 px-4 md:px-0 max-w-3xl mx-auto z-20 relative pb-24">
+                <div className="section-label text-center mb-8">Frequently Asked Questions</div>
+                <div className="space-y-4">
+                    {FAQs.map((faq, index) => (
+                        <details key={index} className="group bg-[#1e2332]/45 backdrop-blur-xl border border-[rgba(0,229,255,0.18)] rounded-[16px] overflow-hidden transition-all duration-300">
+                            <summary className="flex items-center justify-between cursor-pointer p-6 font-bold text-[#00e5ff] tracking-wider uppercase text-xs sm:text-sm">
+                                <span className="pr-4">{faq.q}</span>
+                                <span className="transition duration-300 group-open:-rotate-180 flex-shrink-0 text-[#ff00a0]">
+                                    <svg fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div className="p-6 pt-0 text-white/70 text-sm leading-relaxed border-t border-[rgba(0,229,255,0.1)] mt-2">
+                                <p dangerouslySetInnerHTML={{__html: faq.a}}></p>
+                            </div>
+                        </details>
+                    ))}
+                </div>
+            </section>
 
             {/* MASCOT */}
             <div className="mascot-float hidden md:block">
