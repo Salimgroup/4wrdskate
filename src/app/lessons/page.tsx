@@ -16,7 +16,6 @@ const PRICING = [
     { id: "course", amount: 720, label: "Full Course", desc: "12 Classes — best value", popular: true },
 ];
 
-const APPS_SCRIPT_URL: string = "https://script.google.com/macros/s/AKfycbw_T8vVeF19U0PtqzShQ1u3OxFADTUDxWROYFAJCg9aTtrzQDCI0q7lrEUz0wDlMVap/exec";
 
 const FAQs = [
   { q: "Who are 4WRD lessons for?", a: "Our lessons are designed for children, teens, and adults of all skill levels, including neurodivergent participants. From first-time skaters to those refining their technique, we meet each participant where they are." },
@@ -81,60 +80,6 @@ export default function LessonsPage() {
     const pricingData = PRICING.find(p => p.id === selectedPricing);
 
     
-    const handleCheckout = async () => {
-        if (!selectedSession || !selectedPricing) return;
-        setIsBooking(true);
-        
-        // 1. Google Sheets via Apps Script
-        const sheetRow = [
-            new Date().toISOString(),
-            studentInfo.studentName || "—", studentInfo.dob || "—", studentInfo.grade || "—", studentInfo.school || "—",
-            studentInfo.parentName || "—", studentInfo.relationship || "—", studentInfo.email || "—", studentInfo.phone || "—",
-            studentInfo.emergencyName || "—", studentInfo.emergencyPhone || "—",
-            studentInfo.skillLevel || "—", sessionData?.day || "—", studentInfo.shoeSize || "—", studentInfo.medicalNotes || "—",
-            studentInfo.liability ? "Yes" : "No",
-            studentInfo.photoRelease ? "Yes" : "No",
-        ];
-
-        if (APPS_SCRIPT_URL !== "YOUR_APPS_SCRIPT_URL_HERE") {
-            try {
-                // Remove await to prevent blocking checkout if this fails/is slow
-                fetch(APPS_SCRIPT_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ row: sheetRow }),
-                }).catch(e => console.warn("Sheet export failed:", e));
-            } catch (e) {
-                console.warn("Sheet export failed:", e);
-            }
-        }
-
-        // 2. Send email via Anthropic API + Gmail MCP (fire and forget)
-        try {
-            fetch("/api/checkout", { 
-                method: "POST", 
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    sessionId: selectedSession, 
-                    pricingId: selectedPricing,
-                    studentInfo,
-                    isEmailTrigger: true 
-                }) 
-            }).catch(e => console.warn("Email API call failed:", e));
-            
-        } catch (e) {
-            console.warn("Email send prep failed:", e);
-        }
-
-        // 3. Redirect to Square Checkout
-        setTimeout(() => {
-            alert(`✅ Details saved!\n\nYou will now be redirected to Square to complete your purchase.`);
-            window.location.href = "https://checkout.square.site/merchant/MLFW3X8RMKVW2/checkout/VVQJ2ZJFQPEZULDJUYDP6RBH";
-        }, 800);
-    };
-
-
     return (
         <div className="lessons-custom-theme relative z-20" style={{ minHeight: "100vh", paddingBottom: "100px" }}>
             <div className="bg-nodes"></div>
@@ -235,8 +180,9 @@ export default function LessonsPage() {
 
 
                 {/* DIRECT BUY BUTTONS */}
-                <div className="mt-8 border-t border-white/10 pt-12 pb-12 flex flex-col items-center justify-center gap-6 scroll-reveal scale-up relative z-20">
-                    <p className="text-white/40 text-xs font-bold tracking-widest uppercase mb-2">Quick Purchase Options</p>
+                <div className="mt-8 border-t border-white/10 pt-12 pb-12 flex flex-col items-center justify-center gap-6 scroll-reveal scale-up relative z-20 text-center">
+                    <h2 className="text-[#00e5ff] text-xl font-black tracking-widest uppercase mb-2 drop-shadow-[0_0_10px_rgba(0,229,255,0.5)]">INSTRUCTION: SELECT A SESSION AND A PRICING PLAN TO PURCHASE THE COURSE</h2>
+                    <p className="text-white/60 text-xs font-bold tracking-widest uppercase mb-4 max-w-lg">Direct purchase links directly to Square Checkout without filling out the questionnaire</p>
                     <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-center">
                         <div className="flex flex-col items-center gap-3">
                            <span className="text-[10px] text-[#f5e642] font-bold tracking-wider bg-black/40 px-2 py-1 rounded-md border border-white/10">BEST VALUE</span>
@@ -383,14 +329,39 @@ export default function LessonsPage() {
 
                 {/* BOOK */}
                 <div className="book-section scroll-reveal scale-up delay-400 pb-12 relative z-20">
-                    <button className="book-btn" onClick={handleCheckout} disabled={!selectedSession || !selectedPricing || !isStudentComplete || isBooking}>
-                        {isBooking ? "Processing..." : "Book Now"}
-                    </button>
-                    <div className="book-hint">
+                    <form action="https://formsubmit.co/info@4playglobal.com" method="POST" onSubmit={() => setIsBooking(true)}>
+                        {/* FormSubmit Config */}
+                        <input type="hidden" name="_next" value="https://checkout.square.site/merchant/MLFW3X8RMKVW2/checkout/VVQJ2ZJFQPEZULDJUYDP6RBH" />
+                        <input type="hidden" name="_captcha" value="false" />
+                        <input type="hidden" name="_subject" value="New Lesson Registration" />
+                        
+                        {/* Hidden fields mapped from React state to send in email */}
+                        <input type="hidden" name="Selected Session" value={sessionData ? sessionData.name : "None"} />
+                        <input type="hidden" name="Selected Pricing" value={pricingData ? pricingData.label : "None"} />
+                        <input type="hidden" name="Skater Name" value={studentInfo.studentName} />
+                        <input type="hidden" name="DOB" value={studentInfo.dob} />
+                        <input type="hidden" name="Grade" value={studentInfo.grade} />
+                        <input type="hidden" name="School" value={studentInfo.school} />
+                        <input type="hidden" name="Parent Name" value={studentInfo.parentName} />
+                        <input type="hidden" name="Relationship" value={studentInfo.relationship} />
+                        <input type="hidden" name="Email" value={studentInfo.email} />
+                        <input type="hidden" name="Phone" value={studentInfo.phone} />
+                        <input type="hidden" name="Emergency Name" value={studentInfo.emergencyName} />
+                        <input type="hidden" name="Emergency Phone" value={studentInfo.emergencyPhone} />
+                        <input type="hidden" name="Skill Level" value={studentInfo.skillLevel} />
+                        <input type="hidden" name="Shoe Size" value={studentInfo.shoeSize} />
+                        <input type="hidden" name="Medical Notes" value={studentInfo.medicalNotes} />
+                        
+                        <button type="submit" className="book-btn" disabled={!selectedSession || !selectedPricing || !isStudentComplete || isBooking}>
+                            {isBooking ? "Processing..." : "Submit Form & Purchase"}
+                        </button>
+                    </form>
+                    
+                    <div className="book-hint mt-4">
                         {(!selectedSession) ? "Select a session to continue" 
                             : (!selectedPricing) ? "Select a pricing plan to continue" 
                             : (!isStudentComplete) ? "Complete student details to continue"
-                            : "Proceed to Square Checkout"}
+                            : "Submit questionnaire & proceed to Square Checkout"}
                     </div>
                 </div>
             </div>
