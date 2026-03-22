@@ -1,0 +1,79 @@
+.home-scope {
+  --brand: hsl(345 73% 44%);
+  --brand-foreground: hsl(0 0% 100%);
+  --gold: hsl(51 100% 50%);
+  --maroon: hsl(0 100% 21%);
+  --goldenrod: hsl(43 89% 36%);
+  --mint: hsl(120 73% 75%);
+  --text: hsl(222.2 84% 4.9%);
+  --bg: hsl(0 0% 100%);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100vh;
+}
+.home-scope * { box-sizing: border-box; }
+
+.home-scope .container { width: min(1200px, 100%); margin-inline: auto; padding-inline: 2rem; }
+.home-scope .topline { background:#000; color:#fff; text-align:center; padding:.5rem 1rem; font-weight:600; letter-spacing:.35em; font-size:.7rem; }
+.home-scope header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); background: rgba(255,255,255,.9); border-bottom: 1px solid hsl(214 32% 91%); }
+.home-scope header .bar { display:flex; align-items:center; justify-content:space-between; padding: 1rem 0; }
+.home-scope .logo { display:flex; align-items:center; gap:.75rem; text-decoration:none; color: inherit; }
+.home-scope .logo-badge { width: 40px; height: 40px; border-radius: 999px; background: var(--brand); color: var(--brand-foreground); display:grid; place-items:center; font-weight:900; }
+.home-scope nav { display:none; gap:1rem; align-items:center; }
+.home-scope nav a, .home-scope nav button { background:none; border:0; color:inherit; font: inherit; cursor:pointer; padding:.5rem .75rem; border-radius:999px; text-decoration: none; }
+.home-scope nav a.cta { background: var(--gold); color:#000; font-weight:800; text-transform:uppercase; letter-spacing:.12em; }
+@media (min-width: 768px){ .home-scope nav { display:flex; } }
+
+.home-scope .hero { position: relative; min-height: 520px; display:grid; place-items:center; overflow:hidden; }
+.home-scope .hero::before { content:""; position:absolute; inset:0; background: radial-gradient(circle at 30% 20%, hsl(51 100% 50% / .25), transparent 35%), radial-gradient(circle at 70% 80%, hsl(345 73% 44% / .18), transparent 35%); }
+.home-scope .hero .inner { position: relative; text-align:center; padding: 4rem 0; }
+.home-scope .badge { font-size:.7rem; text-transform:uppercase; letter-spacing:.35em; font-weight:600; color: rgba(0,0,0,.8); }
+.home-scope .logo-circle { width:min(14rem,40vw); aspect-ratio:1/1; margin:2rem auto 0; border-radius:999px; display:grid; place-items:center; font-weight:900; font-size: clamp(3rem, 10vw, 5rem); color:#fff; background: var(--brand); box-shadow: 0 20px 60px rgba(0,0,0,.15); }
+.home-scope h1 { margin: 1.5rem 0 0; font-size: clamp(1.75rem, 3vw + 1rem, 3rem); line-height:1.1; letter-spacing:-.02em; }
+.home-scope .muted { color: hsl(215.4 16.3% 46.9%); max-width: 56ch; margin: .75rem auto 0; }
+.home-scope .row { display:flex; gap:.75rem; justify-content:center; margin-top:1.25rem; flex-wrap:wrap; }
+.home-scope .btn { display:inline-flex; align-items:center; gap:.5rem; padding:.85rem 1.25rem; border-radius:999px; font-weight:800; text-decoration:none; }
+.home-scope .btn.gold { background: var(--gold); color:#000; text-transform:uppercase; letter-spacing:.12em; }
+.home-scope .btn.ghost { border:1px solid hsl(214 32% 91%); color:inherit; }
+
+.home-scope .strip { display:grid; grid-template-columns: repeat(4, 1fr); height:auto; background:#fff; }
+.home-scope .strip .tile { background: url('/placeholder.svg') center/cover no-repeat; height: 220px; }
+@media (min-width: 1024px){ .home-scope .strip { height: 320px; } .home-scope .strip .tile { height: auto; } }
+
+.home-scope .block-red { background: var(--brand); color:#fff; text-align:center; padding: 4rem 2rem; }
+.home-scope .block-red h2 { margin:0; font-size: clamp(1.5rem, 2vw + 1rem, 3rem); text-transform:uppercase; letter-spacing:.12em; }
+.home-scope .block-red p { max-width: 70ch; margin: 1rem auto 0; }
+
+.home-scope .programs { background: var(--brand); color: #fff; padding: 4rem 0; }
+.home-scope .grid { display:grid; gap: 2rem; }
+@media (min-width: 1024px){ .home-scope .grid { grid-template-columns: repeat(4, 1fr); } }
+.home-scope .card { border:1px solid rgba(255,255,255,.2); backdrop-filter: blur(6px); border-radius: 1rem; padding: 1.25rem; }
+.home-scope .card h3 { color: var(--gold); margin-top: 0; letter-spacing:.15em; font-weight:900; }
+.home-scope .card p { line-height:1.7; }
+
+.home-scope .newsletter { background: var(--maroon); color:#fff; text-align:center; padding: 4rem 2rem; }
+.home-scope .newsletter input { width:min(480px, 100%); background:transparent; border:none; border-bottom:2px solid rgba(255,255,255,.8); color:#fff; padding: .9rem; text-align:center; outline:none; }
+.home-scope .newsletter input::placeholder { color: rgba(255,255,255,.7); }
+
+.home-scope .feature { background: linear-gradient(120deg, var(--goldenrod), hsl(51 100% 50% / .85)); color:#000; }
+.home-scope .feature .wrap { display:grid; gap:2rem; align-items:center; padding: 3.5rem 0; }
+@media (min-width: 768px){ .home-scope .feature .wrap { grid-template-columns: 1fr 1fr; } }
+.home-scope .imgbox { border-radius: 1rem; overflow: hidden; border:1px solid hsl(214 32% 91%); box-shadow: 0 10px 30px rgba(0,0,0,.2); }
+.home-scope .imgbox img { display:block; width:100%; height:100%; object-fit:cover; }
+
+.home-scope .pricing { background: #fff; color: #000; padding: 3rem 0; }
+.home-scope table { width:100%; border-collapse: separate; border-spacing: 0 10px; }
+.home-scope th, .home-scope td { text-align:left; padding:.75rem 1rem; background:#fff; }
+.home-scope th { background: transparent; padding-bottom: .5rem; font-weight: 800; }
+.home-scope tbody tr td { border-bottom:1px solid hsl(214 32% 91%); }
+
+.home-scope .contact { background: hsl(217.2 32.6% 17.5%); color:#fff; padding: 3rem 0; }
+.home-scope .contact a { text-decoration: none; }
+
+.home-scope footer { background: var(--brand); color:#fff; }
+.home-scope footer .row { justify-content: space-between; }
+.home-scope .foot-badge { width:56px; height:56px; background:#fff; color: var(--brand); border-radius:999px; display:grid; place-items:center; font-weight:900; font-size:1.4rem; }
+.home-scope .social { display:flex; gap: .75rem; }
+.home-scope .social a { width:40px; height:40px; background:#fff; color: var(--brand); border-radius:999px; display:grid; place-items:center; font-weight:700; text-decoration:none; }
+.home-scope .social a:hover { background: var(--gold); }

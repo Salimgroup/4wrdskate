@@ -7,8 +7,8 @@ import "./lessons.css";
 
 
 const SESSIONS = [
-    { id: "sat-1pm", time: "1:00 PM — 2:00 PM", name: "Children", day: "Saturday", spots: 50 },
-    { id: "sat-1pm", time: "2:00 PM — 3:00 PM", name: "ADULTS", day: "Saturday", spots: 50 },
+    { id: "sat-2pm", time: "3:00 PM — 4:00 PM", name: "Children", day: "Saturday", spots: 50 },
+    { id: "sat-3pm", time: "2:00 PM — 3:00 PM", name: "", day: "Saturday", spots: 50 },
 ];
 
 const PRICING = [
@@ -182,23 +182,7 @@ export default function LessonsPage() {
                 {/* DIRECT BUY BUTTONS */}
                 <div className="mt-8 border-t border-white/10 pt-12 pb-12 flex flex-col items-center justify-center gap-6 scroll-reveal scale-up relative z-20 text-center">
                     <h2 className="text-[#00e5ff] text-xl font-black tracking-widest uppercase mb-2 drop-shadow-[0_0_10px_rgba(0,229,255,0.5)]">INSTRUCTION: SELECT A SESSION AND A PRICING PLAN TO PURCHASE THE COURSE</h2>
-                    <p className="text-white/60 text-xs font-bold tracking-widest uppercase mb-4 max-w-lg">Direct purchase links directly to Square Checkout without filling out the questionnaire</p>
-                    <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-center">
-                        <div className="flex flex-col items-center gap-3">
-                           <span className="text-[10px] text-[#f5e642] font-bold tracking-wider bg-black/40 px-2 py-1 rounded-md border border-white/10">BEST VALUE</span>
-                           <span className="text-xs text-[#f5e642] font-bold tracking-wider">FULL COURSE ($720)</span>
-                           <a href="https://checkout.square.site/merchant/MLFW3X8RMKVW2/checkout/VVQJ2ZJFQPEZULDJUYDP6RBH" target="_blank" rel="noreferrer" className="bg-[#f5e642] text-black px-6 py-3 rounded-full font-bold uppercase tracking-wider text-sm hover:scale-105 transition-transform shadow-[0_0_15px_rgba(245,230,66,0.4)] block text-center min-w-[160px]">
-                               Book Now
-                           </a>
-                        </div>
 
-                        <div className="flex flex-col items-center gap-3">
-                           <span className="text-xs text-[#ff00a0] font-bold tracking-wider">DAY OF CLASS ($75)</span>
-                           <a href="https://checkout.square.site/merchant/MLFW3X8RMKVW2/checkout/VVQJ2ZJFQPEZULDJUYDP6RBH" target="_blank" rel="noreferrer" className="bg-[#ff00a0] text-white px-6 py-3 rounded-full font-bold uppercase tracking-wider text-sm hover:scale-105 transition-transform shadow-[0_0_15px_rgba(255,0,160,0.4)] block text-center min-w-[160px]">
-                               Book Now
-                           </a>
-                        </div>
-                    </div>
                 </div>
 
                 {/* STUDENT INFO FORM */}
@@ -329,7 +313,20 @@ export default function LessonsPage() {
 
                 {/* BOOK */}
                 <div className="book-section scroll-reveal scale-up delay-400 pb-12 relative z-20">
-                    <form action="https://formsubmit.co/info@4playglobal.com" method="POST" onSubmit={() => setIsBooking(true)}>
+                    <form onSubmit={async (e) => {
+                        e.preventDefault();
+                        setIsBooking(true);
+                        const formData = new FormData(e.currentTarget);
+                        try {
+                            await fetch("https://formsubmit.co/ajax/info@4playglobal.com", {
+                                method: "POST",
+                                body: formData,
+                            });
+                        } catch (err) {
+                            console.error(err);
+                        }
+                        window.location.href = "https://checkout.square.site/merchant/MLFW3X8RMKVW2/checkout/VVQJ2ZJFQPEZULDJUYDP6RBH";
+                    }}>
                         {/* FormSubmit Config */}
                         <input type="hidden" name="_next" value="https://checkout.square.site/merchant/MLFW3X8RMKVW2/checkout/VVQJ2ZJFQPEZULDJUYDP6RBH" />
                         <input type="hidden" name="_captcha" value="false" />

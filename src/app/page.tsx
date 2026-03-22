@@ -22,10 +22,11 @@ export default function Page() {
         header .bar { display:flex; align-items:center; justify-content:space-between; padding: 1rem 0; }
         .logo { display:flex; align-items:center; gap:.75rem; text-decoration:none; color: inherit; }
         .logo-badge { width: 40px; height: 40px; border-radius: 999px; background: var(--brand); color: var(--brand-foreground); display:grid; place-items:center; font-weight:900; }
-        nav { display:none; gap:1rem; align-items:center; }
+        nav { display:flex; gap:.5rem; align-items:center; }
+        nav > button { display: none; }
         nav a, nav button { background:none; border:0; color:inherit; font: inherit; cursor:pointer; padding:.5rem .75rem; border-radius:999px; }
         nav a.cta { background: var(--gold); color:#000; font-weight:800; text-transform:uppercase; letter-spacing:.12em; }
-        @media (min-width: 768px){ nav { display:flex; } }
+        @media (min-width: 768px){ nav > button { display: inline-block; } nav { gap:1rem; } }
 
         .hero { position: relative; min-height: 520px; display:grid; place-items:center; overflow:hidden; }
         .hero::before { content:""; position:absolute; inset:0; background: radial-gradient(circle at 30% 20%, hsl(51 100% 50% / .25), transparent 35%), radial-gradient(circle at 70% 80%, hsl(345 73% 44% / .18), transparent 35%); }
