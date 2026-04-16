@@ -101,7 +101,7 @@ export default function LessonsPage() {
                 {/* HERO */}
                 <header className="hero-header scroll-reveal scale-up">
                     <div className="logo-badge flex gap-2 items-center text-xs">
-                        <Image src="/logo.png" alt="4WRD Logo" width={20} height={20} className="rounded-full" />
+                        <Image src="/logo.png" alt="4WRD Logo" width={400} height={400} className="rounded-full" />
                         4WRD Kids • Family • Roller Skating
                     </div>
                     <h1 className="hero-title">Saturday<br/>Sessions</h1>
